@@ -13,7 +13,7 @@ public class WebDriverWrapper {
 
     public WebDriver getDriver() {
         if (driver == null) {
-            // Set the path to the chromedriver executable
+            // Set up the chrome driver
             WebDriverManager.chromedriver().setup();
             // Initialize the WebDriver
             driver = new ChromeDriver();
