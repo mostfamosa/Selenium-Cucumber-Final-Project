@@ -21,6 +21,9 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoginPopUpSteps {
     private TestContext testContext;
     private HomePage homePage;
+    private UserResponseDTO user;
+
+    private final String keyForLocalStorage = "ramilevy";
 
     public LoginPopUpSteps(TestContext testContext) {
         this.testContext = testContext;
@@ -42,19 +45,17 @@ public class LoginPopUpSteps {
         homePage.getLoginInPopUp().logInFullProcess(testContext.get("email"), testContext.get("password"));
     }
 
-    @Then("The username will appear on the bar")
-    public void theUsernameWillAppearOnTheBar() {
-        assertEquals(testContext.get("name"), homePage.getProfileName());
-    }
-
     @When("Via Api - login to a valid user")
     public void viaApiLoginToAValidUser() {
         ResponseWrapper<UserResponseDTO> login = RamiLeviApi.login(testContext.get("email"), testContext.get("password"));
-        UserResponseDTO user = login.getData();
+        user = login.getData();
+    }
 
+    @And("Update user in the local storage")
+    public void updateUserInTheLocalStorage() {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) testContext.get("driver");
-        String key = "ramilevy";
-        String retrievedValue = (String) jsExecutor.executeScript("return localStorage.getItem(arguments[0]);", key);
+        String retrievedValue = (String) jsExecutor.executeScript("return localStorage.getItem(arguments[0]);", keyForLocalStorage);
+
         // Edit the retrieved value
         if (retrievedValue != null) {
             AuthUserForLocalStorage authuserUpdated = ValidateJson.getNodeFromJsonString(AuthUserForLocalStorage.class, retrievedValue, "authuser");
@@ -66,14 +67,13 @@ public class LoginPopUpSteps {
                 jsExecutor.executeScript("" +
                         "var updatedLocalStorage = JSON.parse(localStorage.getItem(arguments[0]));" +
                         "updatedLocalStorage.authuser = JSON.parse(arguments[1]);" +
-                        "console.log(updatedLocalStorage);"+
-                        "localStorage.setItem(arguments[0], JSON.stringify(updatedLocalStorage));", key, ob.writeValueAsString(authuserUpdated.getUser()));
+                        "console.log(updatedLocalStorage);" +
+                        "localStorage.setItem(arguments[0], JSON.stringify(updatedLocalStorage));", keyForLocalStorage, ob.writeValueAsString(authuserUpdated.getUser()));
 
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
         }
-
     }
 
     @And("refresh the page")
@@ -81,4 +81,10 @@ public class LoginPopUpSteps {
         WebDriver driver = testContext.get("driver");
         driver.navigate().refresh();
     }
+
+    @Then("The username will appear on the bar")
+    public void theUsernameWillAppearOnTheBar() {
+        assertEquals(testContext.get("name"), homePage.getProfileName());
+    }
+
 }
