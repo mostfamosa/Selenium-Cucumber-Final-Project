@@ -51,12 +51,10 @@ public class MyHooks {
     public void teardown(Scenario scenario) {
         if (scenario.isFailed()) {
             takeScreenshot(scenario.getName(), testContext);
-
         }
         testContext = null;
 
         // Close the WebDriver (close browser)
         driverWrapper.closeDriver();
-
     }
 }
