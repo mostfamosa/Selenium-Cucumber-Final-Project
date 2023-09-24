@@ -10,7 +10,7 @@ import io.cucumber.java.en.When;
 import logic.api.RamiLeviApi;
 import logic.context.TestContext;
 import logic.entites.DTOs.AuthUserForLocalStorage;
-import logic.entites.DTOs.UserResponseDTO;
+import logic.entites.DTOs.UserResponse;
 import logic.pages.HomePage;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoginPopUpSteps {
     private TestContext testContext;
     private HomePage homePage;
-    private UserResponseDTO user;
+    private UserResponse user;
 
     private final String keyForLocalStorage = "ramilevy";
 
@@ -47,7 +47,7 @@ public class LoginPopUpSteps {
 
     @When("Via Api - login to a valid user")
     public void viaApiLoginToAValidUser() {
-        ResponseWrapper<UserResponseDTO> login = RamiLeviApi.login(testContext.get("email"), testContext.get("password"));
+        ResponseWrapper<UserResponse> login = RamiLeviApi.login(testContext.get("email"), testContext.get("password"));
         user = login.getData();
     }
 

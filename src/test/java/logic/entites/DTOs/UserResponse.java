@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class UserResponseDTO {
+public class UserResponse {
     private User user;
     private DeliveryTimesCustomer deliveryTimesCustomer;
     private List<String> orderTokens;
