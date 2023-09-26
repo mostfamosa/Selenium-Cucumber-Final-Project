@@ -15,6 +15,8 @@ public class AddToCart extends BasePage{
     By CLOSE_POP_UP = By.xpath("//div[@id=\"close-popup\"]");
     By DELETE_ALL_ITEMS = By.xpath("//div[@id=\"remove-cart\"]");
     By SURE_TO_DELETE = By.xpath("//button[@id=\"delete-cart-btn\"]");
+    By CART_PRICE = By.xpath("//span[@class = 'position-relative currency-wrap overflow-ellipsis blue l-text']");
+
     // Web Elements
     WebElement firstElement;
     WebElement plusSign;
@@ -23,6 +25,7 @@ public class AddToCart extends BasePage{
     WebElement closePopUp;
     WebElement deleteAllItems;
     WebElement sureToDelete;
+    WebElement cartPrice;
     public AddToCart(WebDriver driver) {
         super(driver);
         initPage();
@@ -64,6 +67,10 @@ public class AddToCart extends BasePage{
         sureToDelete.click();
     }
 
+    public String getCartPrice(){
+        cartPrice = waitToVisible(CART_PRICE);
+        return cartPrice.getText().replaceAll("[^0-9.]", "");
+    }
 
     // Function to check if an element is present on the page
     private static boolean isElementPresent(WebDriver driver, By by) {
