@@ -43,8 +43,8 @@ public class HttpRequest {
     }
 
     // Overloaded method for request without param
-    public static <T> ResponseWrapper<T> requestWithoutParam(HttpMethods httpMethods, String url, Map<String, String> headers, Class<T> clz) {
-        return request(httpMethods, url, null, null, headers, clz);
+    public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Object body, Map<String, String> headers, Class<T> clz) {
+        return request(httpMethods, url, null, body, headers, clz);
     }
 
     public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Map<String, String> queryParams, Object requestBody, Map<String, String> headers, Class<T> clz) {
