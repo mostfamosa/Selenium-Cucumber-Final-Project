@@ -87,4 +87,20 @@ public class LoginPopUpSteps {
         assertEquals(testContext.get("name"), homePage.getProfileName());
     }
 
+
+    // for all other scenarios this is a repeated steps for logging in.
+    @Given("navigate to ramy levi home page to login")
+    public void NavigateToRamyLeviHomePageToLogin() {
+        //calling
+        goToRamiLeviPage();
+        viaApiLoginToAValidUser();
+    }
+
+    @And("Update user in the local storage , refresh the page")
+    public void updateUserInTheLocalStorageRefreshThePage() {
+        //calling function
+        updateUserInTheLocalStorage();
+        refreshThePage();
+    }
+
 }
