@@ -31,4 +31,8 @@ public class RamiLeviApi {
         header.put("Ecomtoken", user.getUser().getToken());
         return HttpRequest.request(POST, BASE_URL+"v2/cart",new AddItemDTO(itemId,quantity),header,AddItemResponse.class );
     }
+
+    public static ResponseWrapper<AddItemResponse> deleteItemFromCart(String itemId) {
+        return addItemToCart(itemId,0);
+    }
 }

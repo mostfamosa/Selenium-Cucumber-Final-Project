@@ -1,12 +1,13 @@
-package logic.pages;
+package logic.components;
 
+import logic.pages.BasePage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
-public class AddToCart extends BasePage{
+public class AddToCart extends BasePage {
     // Locators
     By FIRST_ELEMENT = By.id("min-height-product-0");
     By PLUS_SIGN_AFTER_HOVER = By.xpath("(//button[@class=\"focus-item btn-acc plus no-select\"])[1]");
@@ -17,6 +18,9 @@ public class AddToCart extends BasePage{
     By SURE_TO_DELETE = By.xpath("//button[@id=\"delete-cart-btn\"]");
     By CART_PRICE = By.xpath("//span[@class = 'position-relative currency-wrap overflow-ellipsis blue l-text']");
 
+    By CART_EMPTY_SIGN = By.xpath("//*[name()='svg' and @xmlns= 'http://www.w3.org/2000/svg' and @width= '123.32']");
+
+
     // Web Elements
     WebElement firstElement;
     WebElement plusSign;
@@ -26,6 +30,8 @@ public class AddToCart extends BasePage{
     WebElement deleteAllItems;
     WebElement sureToDelete;
     WebElement cartPrice;
+    WebElement cartEmptySign;
+
     public AddToCart(WebDriver driver) {
         super(driver);
         initPage();
@@ -33,43 +39,52 @@ public class AddToCart extends BasePage{
 
     private void initPage() {
 
-        inputSearch =waitToVisible(INPUT_SEARCH);
+        inputSearch = waitToVisible(INPUT_SEARCH);
 
     }
 
-    public void hoverOnFirstProduct(){
+    public void hoverOnFirstProduct() {
         firstElement = waitToVisible(FIRST_ELEMENT);
         Actions actions = new Actions(driver);
         actions.moveToElement(firstElement).perform();
     }
-    public void addToCart(){
+
+    public void addToCart() {
         hoverOnFirstProduct();
         plusSign = waitToVisible(PLUS_SIGN_AFTER_HOVER);
         plusSign.click();
         closePopUpAfterSearch();
     }
-    public void search (String word){
+
+    public void search(String word) {
         inputSearch.sendKeys(word);
-        searchButton= waitToVisible(SEARCH_BUTTON);
+        searchButton = waitToVisible(SEARCH_BUTTON);
         searchButton.click();
 
     }
-    public void closePopUpAfterSearch(){
-        if(isElementPresent(driver,CLOSE_POP_UP)) {
+
+    public void closePopUpAfterSearch() {
+        if (isElementPresent(driver, CLOSE_POP_UP)) {
             closePopUp = waitToVisible(CLOSE_POP_UP);
             closePopUp.click();
         }
     }
-    public void deleteAll(){
-        deleteAllItems= waitToVisible(DELETE_ALL_ITEMS);
+
+    public void deleteAll() {
+        deleteAllItems = waitToVisible(DELETE_ALL_ITEMS);
         deleteAllItems.click();
         sureToDelete = waitToVisible(SURE_TO_DELETE);
         sureToDelete.click();
     }
 
-    public String getCartPrice(){
+    public String getCartPrice() {
         cartPrice = waitToVisible(CART_PRICE);
         return cartPrice.getText().replaceAll("[^0-9.]", "");
+    }
+
+    public boolean isTheCartEmpty(){
+        cartEmptySign = waitToVisible(CART_EMPTY_SIGN);
+        return cartEmptySign.isDisplayed();
     }
 
     // Function to check if an element is present on the page
