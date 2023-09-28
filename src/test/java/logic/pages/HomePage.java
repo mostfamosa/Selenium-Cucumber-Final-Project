@@ -1,12 +1,14 @@
 package logic.pages;
 
+import logic.components.AddToCart;
 import logic.components.LoginInPopUp;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class HomePage extends BasePage{
+public class HomePage extends BasePage {
     LoginInPopUp loginInPopUp;
+    AddToCart addToCart;
     // Locators
     private By LOGIN_BUTTON = By.xpath("//div[@class = 'd-lg-block blue align-self-center mx-1 m-text d-none']");
     private By PROFILE_NAME = By.xpath("//div[@class = 'd-flex align-items-center m-text']//span");
@@ -19,10 +21,10 @@ public class HomePage extends BasePage{
     }
 
     private void initPage() {
-        loginBtn = waitToVisible(LOGIN_BUTTON);
     }
 
-    public void clickLogIn(){
+    public void clickLogIn() {
+        loginBtn = waitToVisible(LOGIN_BUTTON);
         loginBtn.click();
         loginInPopUp = new LoginInPopUp(driver);
     }
@@ -31,8 +33,13 @@ public class HomePage extends BasePage{
         return loginInPopUp;
     }
 
+    public AddToCart getAddToCart() {
+        addToCart = new AddToCart(driver);
+        return addToCart;
+    }
+
     //after login check
-    public String getProfileName(){
+    public String getProfileName() {
         return waitToVisible(PROFILE_NAME).getText();
     }
 }
