@@ -26,4 +26,4 @@ Feature: Adding/Deleting Items In Cart
     Given navigate to ramy levi home page to login
     And Update user in the local storage , refresh the page
     When Via Api - adding product with an id "15" to cart
-    Then Via UI - cart price is half of the price that displays on the "pear" product
+    Then Via UI - cart price is half of the price that displays on the product
