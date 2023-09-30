@@ -54,6 +54,8 @@ public class MyHooks {
         }
         testContext = null;
 
+        // Delete All items in the cart
+        homePage.getAddToCart().deleteAll();
         // Close the WebDriver (close browser)
         driverWrapper.closeDriver();
     }

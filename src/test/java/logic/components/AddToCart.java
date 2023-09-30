@@ -63,6 +63,7 @@ public class AddToCart extends BasePage {
         hoverOnProductInCartByIndex(index);
         plusSignOfItemInCart = waitToVisible(PLUS_SIGN_FOR_ITEM_IN_CART);
         plusSignOfItemInCart.click();
+        closePopUpAfterSearch();
     }
 
     public void addToCart() {
@@ -76,7 +77,6 @@ public class AddToCart extends BasePage {
         inputSearch.sendKeys(word);
         searchButton = waitToVisible(SEARCH_BUTTON);
         searchButton.click();
-
     }
 
     public void closePopUpAfterSearch() {
