@@ -11,6 +11,8 @@ import utils.ReadFile;
 import java.util.Properties;
 
 import static infra.WebDriverWrapper.takeScreenshot;
+import static logic.entites.enums.TestContextKey.*;
+import static logic.entites.enums.Property.*;
 
 public class MyHooks {
     private static TestContext testContext;
@@ -20,6 +22,7 @@ public class MyHooks {
     private String userEmail;
     private String userPassword;
     private String userName;
+    private final String propertyFileName = "userData.properties";
 
 
     public MyHooks(TestContext testContext) {
@@ -34,17 +37,17 @@ public class MyHooks {
         driverWrapper.getDriver().manage().window().maximize();
 
         // Read property file and get user data
-        Properties prop = ReadFile.readPropertiesFile("userData.properties");
-        userEmail = prop.getProperty("email");
-        userPassword = prop.getProperty("password");
-        userName = prop.getProperty("name");
+        Properties prop = ReadFile.readPropertiesFile(propertyFileName);
+        userEmail = prop.getProperty(PROPERTY_EMAIL.getKey());
+        userPassword = prop.getProperty(PROPERTY_PASSWORD.getKey());
+        userName = prop.getProperty(PROPERTY_NAME.getKey());
 
         homePage = new HomePage(driverWrapper.getDriver());
 
-        testContext.put("driver", driverWrapper.getDriver());
-        testContext.put("email", userEmail);
-        testContext.put("password", userPassword);
-        testContext.put("name", userName);
+        testContext.put(KEY_DRIVER, driverWrapper.getDriver());
+        testContext.put(KEY_EMAIL, userEmail);
+        testContext.put(KEY_PASSWORD, userPassword);
+        testContext.put(KEY_NAME, userName);
     }
 
     @After
@@ -53,9 +56,6 @@ public class MyHooks {
             takeScreenshot(scenario.getName(), testContext);
         }
         testContext = null;
-
-        // Delete All items in the cart
-        homePage.getAddToCart().deleteAll();
         // Close the WebDriver (close browser)
         driverWrapper.closeDriver();
     }

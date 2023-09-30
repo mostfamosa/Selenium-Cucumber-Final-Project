@@ -12,6 +12,7 @@ import org.junit.Assert;
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assume.*;
 import static org.junit.jupiter.api.Assertions.*;
+import static logic.entites.enums.TestContextKey.*;
 
 public class CartSteps {
 
@@ -21,7 +22,7 @@ public class CartSteps {
 
     public CartSteps(TestContext testContext) {
         this.testContext = testContext;
-        homePage = new HomePage(testContext.get("driver"));
+        homePage = new HomePage(testContext.get(KEY_DRIVER));
     }
 
     @Then("Via Ui - validate that the products are in the cart")

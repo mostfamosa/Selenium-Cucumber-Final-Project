@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import static logic.entites.enums.TestContextKey.*;
+
 public class WebDriverWrapper {
     protected WebDriver driver;
 
@@ -43,7 +45,7 @@ public class WebDriverWrapper {
 
     public static void takeScreenshot(String scenName, TestContext testContext) {
         // Capture a screenshot
-        File screenshot = ((TakesScreenshot) testContext.get("driver")).getScreenshotAs(OutputType.FILE);
+        File screenshot = ((TakesScreenshot) testContext.get(KEY_DRIVER)).getScreenshotAs(OutputType.FILE);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
         try {
             // Specify the file path where you want to save the screenshot
