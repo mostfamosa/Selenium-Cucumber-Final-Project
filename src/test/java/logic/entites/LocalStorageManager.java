@@ -2,19 +2,13 @@ package logic.entites;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import logic.entites.DTOs.AuthUserForLocalStorage;
-import logic.entites.DTOs.UserResponse;
+import logic.entites.responses.AuthUserForLocalStorage;
+import logic.entites.responses.UserResponse;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.html5.LocalStorage;
 import org.openqa.selenium.html5.WebStorage;
-import utils.ReadFile;
 import utils.ValidateJson;
-
-import java.util.Properties;
 
 public class LocalStorageManager {
     private LocalStorage localStorage;

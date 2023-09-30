@@ -1,9 +1,8 @@
-package logic.entites.DTOs;
+package logic.entites.responses;
 
 import lombok.Data;
 
 import java.util.List;
-import java.util.Map;
 
 @Data
 public class AddItemResponse {

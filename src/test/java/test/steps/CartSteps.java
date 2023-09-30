@@ -1,14 +1,13 @@
 package test.steps;
 
 import infra.ResponseWrapper;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import logic.api.RamiLeviApi;
 import logic.context.TestContext;
-import logic.entites.DTOs.AddItemResponse;
+import logic.entites.responses.AddItemResponse;
 import logic.pages.HomePage;
-import org.hamcrest.core.IsEqual;
+import org.junit.Assert;
 
 import static org.hamcrest.Matchers.*;
 import static org.junit.Assume.*;
@@ -25,28 +24,27 @@ public class CartSteps {
         homePage = new HomePage(testContext.get("driver"));
     }
 
-    @Then("Via Ui - the cola product with it's price in the cart")
+    @Then("Via Ui - validate that the products are in the cart")
     public void viaUiTheColaProductWithItSPriceInTheCart() {
-        assertEquals(itemResponse.getPrice(),Double.parseDouble(homePage.getAddToCart().getCartPrice()));
+        assertEquals(itemResponse.getPrice(), Double.parseDouble(homePage.getAddToCart().getCartPrice()));
     }
 
-    @When("Via Api - add {int} cola product with id {string}")
-    public void viaApiAddColaProducts(int quantity, String itemId) {
+    // adding two products of cola
+    @When("Via Api - add {int} products with id {string}")
+    public void viaApiAddProducts(int quantity, String itemId) {
         ResponseWrapper<AddItemResponse> response = RamiLeviApi.addItemToCart(itemId, quantity);
         itemResponse = response.getData();
         // We assume that the product added successfully to the cart
         assumeThat("The status is not 200!\nSomething went wrong!", 200, is(response.getStatus()));
     }
 
+    //adding one product of
     @When("Via Api - adding product with an id {string} to cart")
     public void viaApiAddingProductWithAnIdToCart(String itemId) {
-        ResponseWrapper<AddItemResponse> response = RamiLeviApi.addItemToCart(itemId, 1);
-        itemResponse = response.getData();
-        // We assume that the product added successfully to the cart
-        assumeThat("The status is not 200!\nSomething went wrong!", 200, is(response.getStatus()));
+       viaApiAddProducts(1, itemId);
     }
 
-    @And("via Ui - delete the products from cart")
+    @When("via Ui - delete the product from cart")
     public void viaUiDeleteTheProductFromCart() {
         homePage.getAddToCart().deleteAll();
     }
@@ -56,31 +54,30 @@ public class CartSteps {
         assertTrue(homePage.getAddToCart().isTheCartEmpty());
     }
 
-
-    @When("Via Api - adding product with an id {string} first time to cart")
-    public void viaApiAddingProductWithAnIdFirstTimeToCart(String itemId) {
-        ResponseWrapper<AddItemResponse> response = RamiLeviApi.addItemToCart(itemId, 1);
-        itemResponse = response.getData();
-        // We assume that the product added successfully to the cart
-        assumeThat("The status is not 200!\nSomething went wrong!", 200, is(response.getStatus()));
+    @When("Via Ui - multiply the product in the cart")
+    public void ViaUiAddingProductForTheSecondTimeToCart() {
+        homePage.getAddToCart().multiplyTheItemInCartWithIndex(1);
     }
 
-//    @And("Via Ui - adding product for the second time to cart")
-//    public void ViaUiAddingProductForTheSecondTimeToCart() {
-//        homePage.getAddToCart().addToCart();
-//    }
-
-//    @Then("Via UI - check if the cart price is sum of the two picked products")
-//    public void viaUICheckIfTheCartPriceIsSumOfTheTwoPickedProducts() {
-//        itemResponse.getItems();
-//        System.out.println();
-//        double Sum = viaUiAddingProductWithAnIdSecondTimeToCart()+ viaApiAddingProductWithAnIdFirstTimeToCart();
-//        assertEquals(Sum, homePage.getAddToCart().getCartPrice());
+    @Then("Via UI - check if the cart price is sum of the {int} picked products")
+    public void viaUICheckIfTheCartPriceIsSumOfTheTwoPickedProducts(int quantity) {
+        assertEquals(quantity * itemResponse.getPrice(), Double.parseDouble(homePage.getAddToCart().getCartPrice()));
     }
 
-//    @Then("Via UI - cart price is half of the price that displays on the {string} product")
-//    public void viaUICartPriceIsHalfOfThePriceThatDisplaysOnTheProduct(String itemId) {
-//        assertEquals(homePage.getAddToCart().getCartPrice() , itemId.getClass());
-//
-//    }
+    @When("Via Ui - searching for {string} product")
+    public void viaUiSearchingForProduct(String item) {
+        homePage.getAddToCart().search(item);
+    }
+
+    @When("Via Ui - adding product to cart")
+    public void viaUiAddingProductToCart() {
+        homePage.getAddToCart().addToCart();
+    }
+
+    @Then("Via UI - check if the cart updated")
+    public void viaUICheckIfCartPriceIsBiggerThanZero() {
+        Assert.assertTrue("Cart should have more than price 0",  Double.parseDouble(homePage.getAddToCart().getCartPrice())>0);
+    }
+
+}
 

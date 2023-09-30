@@ -1,4 +1,4 @@
-package logic.entites.DTOs;
+package logic.entites.responses;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ public class UserResponse {
     private DeliveryTimesCustomer deliveryTimesCustomer;
     private List<String> orderTokens;
     private Order order;
-    private Cart cart;
+    private Object cart;
     private List<Object> shopLists;
 
     @Data

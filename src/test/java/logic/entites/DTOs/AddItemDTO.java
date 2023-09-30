@@ -18,7 +18,7 @@ public class AddItemDTO {
     public AddItemDTO() {
     }
 
-    public AddItemDTO(String itemId, int quantity) {
+    public AddItemDTO(String itemId, double quantity) {
 
         //format for the API body request
         SimpleDateFormat isoFormat  = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
@@ -28,7 +28,7 @@ public class AddItemDTO {
         this.items = new HashMap<>();
 
         //add item to the map
-        this.items.put(itemId, Integer.toString(quantity));
+        this.items.put(itemId, Double.toString(quantity));
 
         //set current Date And Time
         this.supplyAt = isoFormat.format(date);

@@ -7,7 +7,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import logic.api.RamiLeviApi;
 import logic.context.TestContext;
-import logic.entites.DTOs.UserResponse;
+import logic.entites.responses.UserResponse;
 import logic.entites.LocalStorageManager;
 import logic.pages.HomePage;
 import org.openqa.selenium.WebDriver;
