@@ -3,14 +3,12 @@ package logic.api;
 
 import infra.HttpRequest;
 import infra.ResponseWrapper;
-import logic.context.TestContext;
 import logic.entites.DTOs.AddItemDTO;
-import logic.entites.DTOs.AddItemResponse;
+import logic.entites.responses.AddItemResponse;
 import logic.entites.DTOs.UserDTO;
-import logic.entites.DTOs.UserResponse;
+import logic.entites.responses.UserResponse;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import static logic.entites.enums.HttpMethods.POST;
 
