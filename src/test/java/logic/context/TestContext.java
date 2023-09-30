@@ -1,16 +1,18 @@
 package logic.context;
 
 
+import logic.entites.enums.TestContextKey;
+
 import java.util.HashMap;
 
 public class TestContext {
-    private HashMap<String, Object> map;
+    private HashMap<TestContextKey, Object> map;
 
     public TestContext() {
         this.map = new HashMap<>();
     }
 
-    public <T> T get(String key) {
+    public <T> T get(TestContextKey key) {
         Object item = map.get(key);
         if (item != null) {
             return (T) item;
@@ -19,7 +21,7 @@ public class TestContext {
         }
     }
 
-    public void put(String key, Object item) {
+    public void put(TestContextKey key, Object item) {
         map.put(key, item);
     }
 }

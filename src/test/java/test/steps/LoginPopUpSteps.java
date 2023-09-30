@@ -13,6 +13,7 @@ import logic.pages.HomePage;
 import org.openqa.selenium.WebDriver;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static logic.entites.enums.TestContextKey.*;
 
 public class LoginPopUpSteps {
     private TestContext testContext;
@@ -21,7 +22,7 @@ public class LoginPopUpSteps {
 
     public LoginPopUpSteps(TestContext testContext) {
         this.testContext = testContext;
-        homePage = new HomePage(testContext.get("driver"));
+        homePage = new HomePage(testContext.get(KEY_DRIVER));
     }
 
     @Given("I'm on Rami Levi Home Page")
@@ -36,30 +37,30 @@ public class LoginPopUpSteps {
 
     @And("On the popUp Login - I insert a valid user and click Login")
     public void onThePopUpLoginIInsertAnd() {
-        homePage.getLoginInPopUp().logInFullProcess(testContext.get("email"), testContext.get("password"));
+        homePage.getLoginInPopUp().logInFullProcess(testContext.get(KEY_EMAIL), testContext.get(KEY_PASSWORD));
     }
 
     @When("Via Api - login to a valid user")
     public void viaApiLoginToAValidUser() {
-        ResponseWrapper<UserResponse> login = RamiLeviApi.login(testContext.get("email"), testContext.get("password"));
+        ResponseWrapper<UserResponse> login = RamiLeviApi.login(testContext.get(KEY_EMAIL), testContext.get(KEY_PASSWORD));
         user = login.getData();
     }
 
     @And("Update user in the local storage")
     public void updateUserInTheLocalStorage() {
-        LocalStorageManager localStorageManager = new LocalStorageManager(testContext.get("driver"));
+        LocalStorageManager localStorageManager = new LocalStorageManager(testContext.get(KEY_DRIVER));
         localStorageManager.updateUserInTheLocalStorage(user);
     }
 
     @And("refresh the page")
     public void refreshThePage() {
-        WebDriver driver = testContext.get("driver");
+        WebDriver driver = testContext.get(KEY_DRIVER);
         driver.navigate().refresh();
     }
 
     @Then("The username will appear on the bar")
     public void theUsernameWillAppearOnTheBar() {
-        assertEquals(testContext.get("name"), homePage.getProfileName());
+        assertEquals(testContext.get(KEY_NAME), homePage.getProfileName());
     }
 
 
