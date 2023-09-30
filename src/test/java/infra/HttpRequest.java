@@ -26,27 +26,6 @@ import java.util.stream.Collectors;
 
 public class HttpRequest {
     private static final Logger logger = LogManager.getLogger(HttpRequest.class);
-
-    //request without param & header
-    public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Object body, Class<T> clz) {
-        return request(httpMethods, url, null, body, null, clz);
-    }
-
-    //request without param & header & body
-    public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Class<T> clz) {
-        return request(httpMethods, url, null, null, null, clz);
-    }
-
-    // Overloaded method for request without header
-    public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Map<String, String> queryParams, Class<T> clz) {
-        return request(httpMethods, url, queryParams, null, null, clz);
-    }
-
-    // Overloaded method for request without param
-    public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Object body, Map<String, String> headers, Class<T> clz) {
-        return request(httpMethods, url, null, body, headers, clz);
-    }
-
     public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Map<String, String> queryParams, Object requestBody, Map<String, String> headers, Class<T> clz) {
         logger.info("Current method name: " + Thread.currentThread().getStackTrace()[2].getMethodName());
 
@@ -145,5 +124,25 @@ public class HttpRequest {
             logger.error("Failed to execute request : " + httpMethod.getRequestUri() + "\n" + e);
             throw new RuntimeException(e);
         }
+    }
+
+    //request without param & header
+    public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Object body, Class<T> clz) {
+        return request(httpMethods, url, null, body, null, clz);
+    }
+
+    //request without param & header & body
+    public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Class<T> clz) {
+        return request(httpMethods, url, null, null, null, clz);
+    }
+
+    // Overloaded method for request without header
+    public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Map<String, String> queryParams, Class<T> clz) {
+        return request(httpMethods, url, queryParams, null, null, clz);
+    }
+
+    // Overloaded method for request without param
+    public static <T> ResponseWrapper<T> request(HttpMethods httpMethods, String url, Object body, Map<String, String> headers, Class<T> clz) {
+        return request(httpMethods, url, null, body, headers, clz);
     }
 }

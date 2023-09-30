@@ -1,4 +1,4 @@
-package logic.entites.DTOs;
+package logic.entites.responses;
 
 import lombok.Data;
 

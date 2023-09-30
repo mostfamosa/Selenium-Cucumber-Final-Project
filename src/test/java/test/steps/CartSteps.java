@@ -1,14 +1,12 @@
 package test.steps;
 
 import infra.ResponseWrapper;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import logic.api.RamiLeviApi;
 import logic.context.TestContext;
-import logic.entites.DTOs.AddItemResponse;
+import logic.entites.responses.AddItemResponse;
 import logic.pages.HomePage;
-import org.hamcrest.core.IsEqual;
 import org.junit.Assert;
 
 import static org.hamcrest.Matchers.*;
@@ -26,7 +24,7 @@ public class CartSteps {
         homePage = new HomePage(testContext.get("driver"));
     }
 
-    @Then("Via Ui - the products with it's price in the cart")
+    @Then("Via Ui - validate that the products are in the cart")
     public void viaUiTheColaProductWithItSPriceInTheCart() {
         assertEquals(itemResponse.getPrice(), Double.parseDouble(homePage.getAddToCart().getCartPrice()));
     }
@@ -46,8 +44,7 @@ public class CartSteps {
        viaApiAddProducts(1, itemId);
     }
 
-
-    @And("via Ui - delete the product from cart")
+    @When("via Ui - delete the product from cart")
     public void viaUiDeleteTheProductFromCart() {
         homePage.getAddToCart().deleteAll();
     }
@@ -57,9 +54,7 @@ public class CartSteps {
         assertTrue(homePage.getAddToCart().isTheCartEmpty());
     }
 
-
-
-    @And("Via Ui - adding product for the second time to cart")
+    @When("Via Ui - multiply the product in the cart")
     public void ViaUiAddingProductForTheSecondTimeToCart() {
         homePage.getAddToCart().multiplyTheItemInCartWithIndex(1);
     }
@@ -69,24 +64,20 @@ public class CartSteps {
         assertEquals(quantity * itemResponse.getPrice(), Double.parseDouble(homePage.getAddToCart().getCartPrice()));
     }
 
-
     @When("Via Ui - searching for {string} product")
     public void viaUiSearchingForProduct(String item) {
         homePage.getAddToCart().search(item);
-
     }
 
-    @And("Via Ui - adding product to cart")
+    @When("Via Ui - adding product to cart")
     public void viaUiAddingProductToCart() {
         homePage.getAddToCart().addToCart();
     }
 
-    @Then("Via UI -check if cart price is bigger than zero")
+    @Then("Via UI - check if the cart updated")
     public void viaUICheckIfCartPriceIsBiggerThanZero() {
         Assert.assertTrue("Cart should have more than price 0",  Double.parseDouble(homePage.getAddToCart().getCartPrice())>0);
     }
-
-
 
 }
 
