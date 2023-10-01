@@ -46,6 +46,12 @@ You can choose your own site to perform test on assuming it answers the followin
 * Use pull requests and have code reviews
 * Use informative commit messages
 
+### Test Case
+* https://docs.google.com/spreadsheets/d/1NB0QqqlriIewIOU1cFRNnEFPFgwoFd6d6M6PmO2Zp0g/edit?usp=sharing
+
+### Test Plan
+* https://docs.google.com/document/d/1uyNNlkm7h34l5G2eTf7eC0q8U1QkLkdnz-LI_JO7nGI/edit?usp=sharing
+
 ### Stability
 * Make sure your tests pass consistently, no flaky tests!
 * Tests may fail if there are actual bugs in the system
