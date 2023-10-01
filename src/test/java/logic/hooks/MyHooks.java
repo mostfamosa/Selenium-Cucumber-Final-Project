@@ -5,6 +5,7 @@ import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import io.qameta.allure.Allure;
+import logic.api.RamiLeviApi;
 import logic.context.TestContext;
 import logic.pages.HomePage;
 import utils.ReadFile;
@@ -55,8 +56,10 @@ public class MyHooks {
     @After
     public void teardown(Scenario scenario) {
         if (scenario.isFailed()) {
-            Allure.addAttachment("Failed Screenshot",new ByteArrayInputStream(takeScreenshot(scenario.getName(), testContext)));
+            Allure.addAttachment("Failed Screenshot", new ByteArrayInputStream(takeScreenshot(scenario.getName(), testContext)));
         }
+        if (testContext.get(ITEM_ID) != null)
+            RamiLeviApi.deleteItemFromCart(testContext.get(ITEM_ID));
         testContext = null;
         // Close the WebDriver (close browser)
         driverWrapper.closeDriver();

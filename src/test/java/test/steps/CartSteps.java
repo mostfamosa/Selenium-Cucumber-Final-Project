@@ -37,6 +37,7 @@ public class CartSteps {
         itemResponse = response.getData();
         // We assume that the product added successfully to the cart
         assumeThat("The status is not 200!\nSomething went wrong!", 200, is(response.getStatus()));
+        testContext.put(ITEM_ID,itemId);
     }
 
     //adding one product of
