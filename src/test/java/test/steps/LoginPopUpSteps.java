@@ -1,7 +1,6 @@
 package test.steps;
 
 import infra.ResponseWrapper;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -17,42 +16,42 @@ import static logic.entites.enums.TestContextKey.*;
 
 public class LoginPopUpSteps {
     private TestContext testContext;
-    private HomePage homePage;
-    private UserResponse user;
 
     public LoginPopUpSteps(TestContext testContext) {
         this.testContext = testContext;
-        homePage = new HomePage(testContext.get(KEY_DRIVER));
     }
 
     @Given("I'm on Rami Levi Home Page")
     public void goToRamiLeviPage() {
-        //in the @before hook already get the page
+        testContext.put(HOME_PAGE,new HomePage(testContext.get(KEY_DRIVER)));
     }
 
     @When("On the home page - I click on login")
     public void onTheHomePageIClickOnLogin() {
-        homePage.clickLogIn();
+         HomePage homePage = testContext.get(HOME_PAGE);
+         homePage.clickLogIn();
     }
 
-    @And("On the popUp Login - I insert a valid user and click Login")
+    @When("On the popUp Login - I insert a valid user and click Login")
     public void onThePopUpLoginIInsertAnd() {
+        HomePage homePage = testContext.get(HOME_PAGE);
         homePage.getLoginInPopUp().logInFullProcess(testContext.get(KEY_EMAIL), testContext.get(KEY_PASSWORD));
     }
 
     @When("Via Api - login to a valid user")
     public void viaApiLoginToAValidUser() {
         ResponseWrapper<UserResponse> login = RamiLeviApi.login(testContext.get(KEY_EMAIL), testContext.get(KEY_PASSWORD));
-        user = login.getData();
+        UserResponse user = login.getData();
+        testContext.put(USER_INFO,user);
     }
 
-    @And("Update user in the local storage")
+    @When("Update user in the local storage")
     public void updateUserInTheLocalStorage() {
         LocalStorageManager localStorageManager = new LocalStorageManager(testContext.get(KEY_DRIVER));
-        localStorageManager.updateUserInTheLocalStorage(user);
+        localStorageManager.updateUserInTheLocalStorage(testContext.get(USER_INFO));
     }
 
-    @And("refresh the page")
+    @When("Via Ui - refresh the page")
     public void refreshThePage() {
         WebDriver driver = testContext.get(KEY_DRIVER);
         driver.navigate().refresh();
@@ -60,6 +59,7 @@ public class LoginPopUpSteps {
 
     @Then("The username will appear on the bar")
     public void theUsernameWillAppearOnTheBar() {
+        HomePage homePage = testContext.get(HOME_PAGE);
         assertEquals(testContext.get(KEY_NAME), homePage.getProfileName());
     }
 
@@ -72,7 +72,7 @@ public class LoginPopUpSteps {
         viaApiLoginToAValidUser();
     }
 
-    @And("Update user in the local storage , refresh the page")
+    @Given("Update user in the local storage , refresh the page")
     public void updateUserInTheLocalStorageRefreshThePage() {
         //calling function
         updateUserInTheLocalStorage();

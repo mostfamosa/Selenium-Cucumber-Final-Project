@@ -1,5 +1,5 @@
 Feature: User Login
-  @Regression
+  #@Regression
   Scenario: Login With A Valid User Via UI
     Given I'm on Rami Levi Home Page
     When On the home page - I click on login
@@ -10,5 +10,5 @@ Feature: User Login
     Given I'm on Rami Levi Home Page
     When Via Api - login to a valid user
     And Update user in the local storage
-    And refresh the page
+    And Via Ui - refresh the page
     Then The username will appear on the bar

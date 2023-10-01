@@ -10,6 +10,7 @@ import org.openqa.selenium.interactions.Actions;
 public class AddToCart extends BasePage {
     // Locators
     By FIRST_ELEMENT = By.id("min-height-product-0");
+    By FIRST_ELEMENT_TITLE = By.xpath("//div[@class = 'inner-text mt-2'])[1]");
     By PLUS_SIGN_AFTER_HOVER = By.xpath("(//button[@class='focus-item btn-acc plus no-select'])[1]");
     By INPUT_SEARCH = By.id("destination");
     By SEARCH_BUTTON = By.xpath("//button[@class='focus-item online-full-btn w-100 mt-3 mb-2 px-2 py-3 border-radius-20'] ");
@@ -24,6 +25,7 @@ public class AddToCart extends BasePage {
 
     // Web Elements
     WebElement firstElement;
+    WebElement firstElementTitle;
     WebElement plusSign;
     WebElement inputSearch;
     WebElement searchButton;
@@ -50,6 +52,7 @@ public class AddToCart extends BasePage {
         firstElement = waitToVisible(FIRST_ELEMENT);
         Actions actions = new Actions(driver);
         actions.moveToElement(firstElement).perform();
+        firstElementTitle = waitToVisible(FIRST_ELEMENT_TITLE);
     }
 
     private void hoverOnProductInCartByIndex(int index) {
@@ -57,6 +60,10 @@ public class AddToCart extends BasePage {
         itemInCart = waitToVisible(ITEM_IN_CART);
         Actions actions = new Actions(driver);
         actions.moveToElement(itemInCart).perform();
+    }
+
+    public String getFirstElementTitle() {
+        return firstElementTitle.getText();
     }
 
     public void multiplyTheItemInCartWithIndex(int index) {
