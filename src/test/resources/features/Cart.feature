@@ -6,7 +6,7 @@ Feature: Adding/Deleting Items In Cart
     When On the home page - I click on login
     And On the popUp Login - I insert a valid user and click Login
 
-  @Regression
+  #@Regression
   Scenario Outline: adding a product to the cart then check existence
     When Via Api - add <quantity> products with id "<product_id>"
     Then Via Ui - validate that the products are in the cart
@@ -20,7 +20,7 @@ Feature: Adding/Deleting Items In Cart
     When Via Api - adding product with an id "386565" to cart
     And via Ui - delete the product from cart
     Then via UI - check that product is no longer in cart
-  #@Regression
+  @Regression
   Scenario: adding multiple items to cart to check the price/total
     When Via Api - adding product with an id "376961" to cart
     And Via Ui - multiply the product in the cart
