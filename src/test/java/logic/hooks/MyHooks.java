@@ -20,7 +20,6 @@ import static logic.entites.enums.Property.*;
 public class MyHooks {
     private static TestContext testContext;
     private WebDriverWrapper driverWrapper;
-    private HomePage homePage;
     private String testUrl = "https://www.rami-levy.co.il/he";
     private String userEmail;
     private String userPassword;
@@ -44,8 +43,6 @@ public class MyHooks {
         userEmail = prop.getProperty(PROPERTY_EMAIL.getKey());
         userPassword = prop.getProperty(PROPERTY_PASSWORD.getKey());
         userName = prop.getProperty(PROPERTY_NAME.getKey());
-
-        homePage = new HomePage(driverWrapper.getDriver());
 
         testContext.put(KEY_DRIVER, driverWrapper.getDriver());
         testContext.put(KEY_EMAIL, userEmail);
