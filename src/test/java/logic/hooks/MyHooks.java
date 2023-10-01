@@ -4,10 +4,12 @@ import infra.WebDriverWrapper;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+import io.qameta.allure.Allure;
 import logic.context.TestContext;
 import logic.pages.HomePage;
 import utils.ReadFile;
 
+import java.io.ByteArrayInputStream;
 import java.util.Properties;
 
 import static infra.WebDriverWrapper.takeScreenshot;
@@ -53,7 +55,7 @@ public class MyHooks {
     @After
     public void teardown(Scenario scenario) {
         if (scenario.isFailed()) {
-            takeScreenshot(scenario.getName(), testContext);
+            Allure.addAttachment("Failed Screenshot",new ByteArrayInputStream(takeScreenshot(scenario.getName(), testContext)));
         }
         testContext = null;
         // Close the WebDriver (close browser)

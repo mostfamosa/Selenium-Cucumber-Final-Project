@@ -43,13 +43,15 @@ public class WebDriverWrapper {
         }
     }
 
-    public static void takeScreenshot(String scenName, TestContext testContext) {
+    public static byte[] takeScreenshot(String scenName, TestContext testContext) {
         // Capture a screenshot
-        File screenshot = ((TakesScreenshot) testContext.get(KEY_DRIVER)).getScreenshotAs(OutputType.FILE);
+        byte[] screenshot = ((TakesScreenshot) testContext.get(KEY_DRIVER)).getScreenshotAs(OutputType.BYTES);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy-HH-mm-ss");
         try {
+            File screenshot2 = ((TakesScreenshot) testContext.get(KEY_DRIVER)).getScreenshotAs(OutputType.FILE);
             // Specify the file path where you want to save the screenshot
-            FileUtils.copyFile(screenshot, new File(String.format("screenshot_%s_%s.png", scenName, LocalDateTime.now().format(format))));
+            FileUtils.copyFile(screenshot2, new File(String.format("screenshot_%s_%s.png", scenName, LocalDateTime.now().format(format))));
+            return screenshot;
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
