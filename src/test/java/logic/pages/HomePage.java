@@ -21,6 +21,7 @@ public class HomePage extends BasePage {
     }
 
     private void initPage() {
+        addToCart = new AddToCart(driver);
     }
 
     public void clickLogIn() {
@@ -34,7 +35,6 @@ public class HomePage extends BasePage {
     }
 
     public AddToCart getAddToCart() {
-        addToCart = new AddToCart(driver);
         return addToCart;
     }
 
