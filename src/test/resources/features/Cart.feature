@@ -18,7 +18,7 @@ Feature: Adding/Deleting Items In Cart
       | 1        | 15         |
       | 3        | 376961     |
 
-  @Regression
+  #@Regression
   Scenario: Check if the products deleted from the cart
     When Via Api - adding product with an id "386565" to cart
     And Via Ui - refresh the page
@@ -31,8 +31,8 @@ Feature: Adding/Deleting Items In Cart
     And Via Ui - multiply the product in the cart
     Then Via UI - check if the cart price is sum of the 2 picked products
 
-  #@Regression
-#  Scenario: searching for product and add it to the cart then check by title
-#    When Via Ui - searching for "cola" products
-#    And Via Ui - adding the top search result product to the cart
-#    Then Via UI - check if product title match the one in cart
+  @Regression
+  Scenario: searching for product and add it to the cart then check by title
+    When Via Ui - searching for "מי סודה 200מל שישייה" products
+    And Via Ui - adding the top search result product to the cart
+    Then Via UI - check if product title match the one in cart

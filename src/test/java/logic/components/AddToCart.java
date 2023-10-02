@@ -10,8 +10,9 @@ import org.openqa.selenium.interactions.Actions;
 public class AddToCart extends BasePage {
     // Locators
     By FIRST_ELEMENT = By.id("min-height-product-0");
-    By FIRST_ELEMENT_TITLE = By.xpath("//div[@class = 'inner-text mt-2'])[1]");
-    By PLUS_SIGN_AFTER_HOVER = By.xpath("(//button[@class='focus-item btn-acc plus no-select'])[1]");
+    By FIRST_ELEMENT_TITLE = By.xpath("(//div[@class = 'inner-text mt-2'])[1]");
+    By FIRST_ELEMENT_IN_CART_TITLE = By.id("cart-product-8680530572660");
+    By PLUS_SIGN_AFTER_HOVER = By.xpath("//button[@class='focus-item btn-acc plus no-select' and not(@style)]");
     By INPUT_SEARCH = By.id("destination");
     By SEARCH_BUTTON = By.xpath("//button[@class='focus-item online-full-btn w-100 mt-3 mb-2 px-2 py-3 border-radius-20'] ");
     By CLOSE_POP_UP = By.xpath("//div[@id='close-popup']");
@@ -26,6 +27,7 @@ public class AddToCart extends BasePage {
     // Web Elements
     WebElement firstElement;
     WebElement firstElementTitle;
+    WebElement firstElementInCartTitle;
     WebElement plusSign;
     WebElement inputSearch;
     WebElement searchButton;
@@ -44,7 +46,7 @@ public class AddToCart extends BasePage {
 
     private void initPage() {
 
-        inputSearch = waitToVisible(INPUT_SEARCH);
+
 
     }
 
@@ -65,6 +67,10 @@ public class AddToCart extends BasePage {
     public String getFirstElementTitle() {
         return firstElementTitle.getText();
     }
+    public String getFirstElementInCartTitle() {
+        firstElementInCartTitle =waitToVisible(FIRST_ELEMENT_IN_CART_TITLE);
+        return firstElementInCartTitle.getText();
+    }
 
     public void multiplyTheItemInCartWithIndex(int index) {
         hoverOnProductInCartByIndex(index);
@@ -81,6 +87,7 @@ public class AddToCart extends BasePage {
     }
 
     public void search(String word) {
+        inputSearch = waitToVisible(INPUT_SEARCH);
         inputSearch.sendKeys(word);
         searchButton = waitToVisible(SEARCH_BUTTON);
         searchButton.click();

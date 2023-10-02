@@ -89,8 +89,7 @@ public class CartSteps {
     @Then("Via UI - check if product title match the one in cart")
     public void viaUICheckIfCartPriceIsBiggerThanZero() {
         HomePage homePage = testContext.get(HOME_PAGE);
-        String title = homePage.getAddToCart().getFirstElementTitle();
-        Assert.assertEquals("Cart should have more than price 0", title,false);
+        Assert.assertEquals("Cart should have more than price 0", homePage.getAddToCart().getFirstElementTitle(),homePage.getAddToCart().getFirstElementInCartTitle());
     }
 
 }
